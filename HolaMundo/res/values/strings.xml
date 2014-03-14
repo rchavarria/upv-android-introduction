@@ -3,6 +3,7 @@
 
     <string name="app_name">Hola Mundo</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Hello world! Im using whatsapp</string>
+    <string name="about">About...</string>
 
 </resources>
