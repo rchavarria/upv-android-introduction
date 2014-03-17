@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
+	public static final int REQUEST_CODE = 1123455;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +24,20 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+			boolean result = data.getExtras().getBoolean("result");
+			TextView txt = (TextView) findViewById(R.id.txtResult);
+			txt.setText("Resultado: " + result);
+		}
+	}
+	
 	public void launchVerify(View v) {
 		Intent i = new Intent(this, VerificationActivity.class);
-		startActivity(i);
+		EditText txt = (EditText) findViewById(R.id.txtName);
+		i.putExtra("name", txt.getText().toString());
+		startActivityForResult(i, REQUEST_CODE);
 	}
 
 }
