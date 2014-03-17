@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void launchAbout(View view) {
-		Intent i = new Intent(this, About.class);
+		Intent i = new Intent(this, AboutActivity.class);
 		startActivity(i);
 	}
 }
