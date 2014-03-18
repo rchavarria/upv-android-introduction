@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:label="Acerca de..." android:name="AboutActivity" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:label="Preferencias" android:name="Preferences"></activity>
     </application>
 
 </manifest>

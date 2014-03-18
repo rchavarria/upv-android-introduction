@@ -19,5 +19,10 @@
         android:key="orden"
         android:summary="Que lugares quieres que aparezcan antes"
         android:title="Criterio de ordenación" />
+    <PreferenceScreen android:title="Notificaciones de correo">
+        <CheckBoxPreference android:title="Recibir correos" android:summary="Recibir correos con información sobre lugares"/>
+        <EditTextPreference android:summary="Cuenta donde se mandarán las notificaciones" android:title="Dirección de correo"/>
+        <ListPreference android:summary="Qué tipos de correos quieres recibir" android:title="Tipos de notificaciones" android:entries="@array/notificationType" android:entryValues="@array/notificationType"/>
+    </PreferenceScreen>
 
 </PreferenceScreen>

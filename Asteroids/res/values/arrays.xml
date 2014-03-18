@@ -11,5 +11,10 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="notificationType">
+        <item>nuevos lugares</item>
+        <item>cerca de mí</item>
+        <item>mejor valorados</item>
+    </string-array>
 
 </resources>

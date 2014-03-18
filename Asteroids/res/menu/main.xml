@@ -4,7 +4,7 @@
               android:id="@+id/config"
               android:icon="@android:drawable/ic_menu_preferences"
               android:orderInCategory="95"
-              android:showAsAction="ifRoom"/>
+              android:showAsAction="ifRoom" />
        <item android:title="Acerca de..."
               android:id="@+id/about"
               android:icon="@android:drawable/ic_menu_info_details"

@@ -28,12 +28,20 @@ public class MainActivity extends Activity {
 		case R.id.about:
 			launchAbout(null);
 			break;
+		case R.id.config:
+			launchPreferences(null);
+			break;
 		}
 		return true;
 	}
 	
 	public void launchAbout(View view) {
 		Intent i = new Intent(this, AboutActivity.class);
+		startActivity(i);
+	}
+	
+	public void launchPreferences(View view) {
+		Intent i = new Intent(this, Preferences.class);
 		startActivity(i);
 	}
 }
