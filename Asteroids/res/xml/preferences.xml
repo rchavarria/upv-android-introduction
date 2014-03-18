@@ -25,4 +25,4 @@
         <ListPreference android:summary="Qué tipos de correos quieres recibir" android:title="Tipos de notificaciones" android:entries="@array/notificationType" android:entryValues="@array/notificationType"/>
     </PreferenceCategory>
 
-</PreferenceScreen>
+</PreferenceScreen>	
