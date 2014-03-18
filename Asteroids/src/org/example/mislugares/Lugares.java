@@ -66,4 +66,15 @@ public class Lugares {
           return lugares;
 
     }
+    
+    public static List<String> nameList() {
+    	List<Lugar> places = ejemploLugares();
+    	List<String> names = new ArrayList<String>(places.size());
+    	
+    	for (Lugar place : places) {
+			names.add(place.getNombre());
+		}
+    	
+    	return names;
+    }
   }

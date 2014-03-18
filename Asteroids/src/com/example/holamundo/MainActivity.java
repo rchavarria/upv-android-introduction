@@ -1,6 +1,8 @@
 package com.example.holamundo;
 
-import android.app.Activity;
+import org.example.mislugares.Lugares;
+
+import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,14 +10,24 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
+	
+	private BaseAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		adapter = new ArrayAdapter<String>(
+				this, 
+				android.R.layout.simple_list_item_1,
+				Lugares.nameList());
+		setListAdapter(adapter);
 	}
 
 	@Override
