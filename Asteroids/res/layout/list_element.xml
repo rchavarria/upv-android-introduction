@@ -30,15 +30,6 @@
         android:gravity="center"
         android:singleLine="true"
         android:text="dirección del lugar" />
-<!--     <TextView -->
-<!--         android:id="@+id/direccion" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="match_content" -->
-<!--         android:layout_below="@id/nombre" -->
-<!--         android:layout_toRightOf="@id/foto" -->
-<!--         android:gravity="center" -->
-<!--         android:singleLine="true" -->
-<!--         android:text="dirección del lugar" /> -->
     
     <RatingBar
         android:id="@+id/valoracion"
