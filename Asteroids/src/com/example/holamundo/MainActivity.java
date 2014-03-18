@@ -25,7 +25,8 @@ public class MainActivity extends ListActivity {
 		
 		adapter = new ArrayAdapter<String>(
 				this, 
-				android.R.layout.simple_list_item_1,
+				R.layout.list_element,
+				R.id.nombre,
 				Lugares.nameList());
 		setListAdapter(adapter);
 	}
