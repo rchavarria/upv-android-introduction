@@ -21,6 +21,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_alignRight="@+id/textView1"
         android:layout_below="@+id/textView1"
+        android:onClick="launchAbout"
         android:text="@string/about" />
 
 </RelativeLayout>
