@@ -41,12 +41,12 @@ public class VistaLugar extends Activity {
         url.setText(lugar.getUrl());
         TextView comentario = (TextView) findViewById(R.id.comentario);
         comentario.setText(lugar.getComentario());
-//        TextView fecha = (TextView) findViewById(R.id.fecha);
-//        fecha.setText(DateFormat.getDateInstance().format(
-//                           new Date(lugar.getFecha())));
-//        TextView hora = (TextView) findViewById(R.id.hora);
-//        hora.setText(DateFormat.getTimeInstance().format(
-//                           new Date(lugar.getFecha())));
+        TextView fecha = (TextView) findViewById(R.id.fecha);
+        fecha.setText(DateFormat.getDateInstance().format(
+                           new Date(lugar.getFecha())));
+        TextView hora = (TextView) findViewById(R.id.hora);
+        hora.setText(DateFormat.getTimeInstance().format(
+                           new Date(lugar.getFecha())));
         RatingBar valoracion = (RatingBar) findViewById(R.id.valoracion);
         valoracion.setRating(lugar.getValoracion());
         valoracion.setOnRatingBarChangeListener(
