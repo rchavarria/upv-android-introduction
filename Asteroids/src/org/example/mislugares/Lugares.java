@@ -11,21 +11,21 @@ public class Lugares {
          vectorLugares = ejemploLugares();
     }
 
-    static Lugar elemento(int id){
+    public static Lugar elemento(int id){
           return vectorLugares.get(id);
     }
 
-    static void anyade(Lugar lugar){
+    public static void anyade(Lugar lugar){
           vectorLugares.add(lugar);
     }
 
-    static int nuevo(){
+    public static int nuevo(){
           Lugar lugar = new Lugar();
           vectorLugares.add(lugar);
           return vectorLugares.size()-1;
     }
 
-    static void borrar(int id){
+    public static void borrar(int id){
           vectorLugares.remove(id);
     }
 

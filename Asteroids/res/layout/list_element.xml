@@ -9,7 +9,7 @@
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_alignParentLeft="true"
         android:contentDescription="fotografía"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/bar" />
 
     <TextView
         android:id="@+id/nombre"

@@ -23,11 +23,7 @@ public class MainActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		adapter = new ArrayAdapter<String>(
-				this, 
-				R.layout.list_element,
-				R.id.nombre,
-				Lugares.nameList());
+		adapter = new PlacesAdapter(this);
 		setListAdapter(adapter);
 	}
 
