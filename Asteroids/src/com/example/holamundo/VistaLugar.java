@@ -7,7 +7,13 @@ import org.example.mislugares.Lugar;
 import org.example.mislugares.Lugares;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
@@ -57,4 +63,43 @@ public class VistaLugar extends Activity {
                 }
         });
     }
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.vista_lugar, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.accion_compartir:
+			return true;
+		case R.id.accion_llegar:
+			return true;
+		case R.id.accion_editar:
+			return true;
+		case R.id.accion_borrar:
+			deleteAction((int) id);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	private void deleteAction(final int id) {
+//		final EditText entrada = new EditText(this);
+//        entrada.setText("0");
+        new AlertDialog.Builder(this)
+           .setTitle("Borrado de lugar")
+           .setMessage("¿Desea usted borrar este lugar?")
+//           .setView(entrada)
+           .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface dialog, int whichButton) {
+                   Lugares.borrar(id);
+                   finish();
+               }})
+           .setNegativeButton("Cancelar", null)
+           .show();
+	}
 }
