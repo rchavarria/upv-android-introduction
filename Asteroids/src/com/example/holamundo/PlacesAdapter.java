@@ -71,6 +71,9 @@ public class PlacesAdapter extends BaseAdapter {
 		case GASOLINERA:
 			id = R.drawable.gasolinera;
 			break;
+		default:
+			id = R.drawable.ic_launcher;
+			break;
 		}
 
 		foto.setImageResource(id);
