@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 public class CounterActivity extends Activity {
 
+	private CounterController controller = new CounterController();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -16,11 +18,7 @@ public class CounterActivity extends Activity {
 	public void incrementCounter(View v) {
 		TextView txt = (TextView) findViewById(R.id.txtCounter);
 		
-		String numberString = txt.getText().toString();
-		int number = Integer.parseInt(numberString);
-		
-		String nextNumber = Integer.valueOf(number + 1).toString();
-		txt.setText(nextNumber);
+		txt.setText(controller.incrementCounter(txt.getText().toString()));
 		txt.invalidate();
 	}
 }
