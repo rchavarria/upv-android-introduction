@@ -10,10 +10,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
@@ -74,8 +75,13 @@ public class VistaLugar extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.accion_compartir:
+			Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, lugar.getNombre() + " - "+ lugar.getUrl());
+            startActivity(intent);
 			return true;
 		case R.id.accion_llegar:
+			verMapa(null);
 			return true;
 		case R.id.accion_editar:
 			return true;
@@ -102,4 +108,27 @@ public class VistaLugar extends Activity {
            .setNegativeButton("Cancelar", null)
            .show();
 	}
+	
+	private void verMapa(View v) {
+		Uri uri;
+        double lat = lugar.getPosicion().getLatitud();
+        double lon = lugar.getPosicion().getLongitud();
+        if (lat != 0 || lon != 0) {
+               uri = Uri.parse("geo:" + lat + "," + lon);
+        } else {
+               uri = Uri.parse("geo:0,0?q=" + lugar.getDireccion());
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+	}
+	
+	public void llamadaTelefono(View view) {
+		startActivity(new Intent(Intent.ACTION_DIAL, 
+				Uri.parse("tel:" + lugar.getTelefono())));
+	}
+
+	public void pgWeb(View view) {
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(lugar.getUrl())));
+	}
+
 }
