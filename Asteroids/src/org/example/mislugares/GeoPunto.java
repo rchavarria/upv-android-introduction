@@ -8,6 +8,14 @@ public class GeoPunto {
 		this.longitud = longitud;
 	}
 
+	public double getLongitud() {
+		return longitud;
+	}
+
+	public double getLatitud() {
+		return latitud;
+	}
+
 	/** Transcribe el punto a String.
 	 * @return un string con la parte entera y la imaginaria
 	 */
