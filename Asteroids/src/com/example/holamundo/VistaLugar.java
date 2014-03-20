@@ -1,5 +1,6 @@
 package com.example.holamundo;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -12,6 +13,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,8 +24,13 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 public class VistaLugar extends Activity {
+	final static int RESULTADO_EDITAR= 1;
+	final static int RESULTADO_GALERIA= 2;
+	final static int RESULTADO_FOTO= 3;
+	
 	private long id;
 	private Lugar lugar;
+	private Uri uriFoto;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,9 @@ public class VistaLugar extends Activity {
                     lugar.setValoracion(valor);
                 }
         });
+        
+        ImageView image = (ImageView) findViewById(R.id.foto);
+        ponerFoto(image, lugar.getFoto());
     }
 	
 	@Override
@@ -90,6 +101,22 @@ public class VistaLugar extends Activity {
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		ImageView image = (ImageView) findViewById(R.id.foto);
+		
+		if(requestCode == RESULTADO_GALERIA && resultCode == Activity.RESULT_OK) {
+			lugar.setFoto(data.getDataString());
+		    ponerFoto(image, lugar.getFoto());
+		
+		} else if(requestCode == RESULTADO_FOTO && resultCode == Activity.RESULT_OK && lugar!=null && uriFoto!=null) {
+	       lugar.setFoto(uriFoto.toString());
+	       ponerFoto(image, lugar.getFoto());
 		}
 	}
 	
@@ -131,4 +158,38 @@ public class VistaLugar extends Activity {
 		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(lugar.getUrl())));
 	}
 
+	public void galeria(View view) {
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		intent.addCategory(Intent.CATEGORY_OPENABLE);
+		intent.setType("image/*");
+
+		startActivityForResult(intent, RESULTADO_GALERIA);
+	}
+	
+	protected void ponerFoto(ImageView imageView, String uri) {
+		if (uri != null) {
+			imageView.setImageURI(Uri.parse(uri));
+		} else {
+			imageView.setImageBitmap(null);
+		}
+	}
+	
+	public void tomarFoto(View view) {
+	    String fileUri = Environment.getExternalStorageDirectory() + 
+	    		File.separator +
+	    		"img_" + 
+	    		(System.currentTimeMillis() / 1000) + 
+	    		".jpg";
+	    uriFoto = Uri.fromFile(new File(fileUri));
+	    
+	    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+	    intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFoto);
+	    startActivityForResult(intent, RESULTADO_FOTO);
+	}
+	
+	public void eliminarFoto(View v) {
+		lugar.setFoto(null);
+		ImageView image = (ImageView) findViewById(R.id.foto);
+		ponerFoto(image, null);
+	}
 }
