@@ -15,7 +15,7 @@ public class CounterActivity extends Activity {
 		setContentView(R.layout.activity_counter);
 	}
 	
-	public void incrementCounter(View v) {
+	public void counterTouched(View v) {
 		TextView txt = (TextView) findViewById(R.id.txtCounter);
 		
 		txt.setText(controller.next());
