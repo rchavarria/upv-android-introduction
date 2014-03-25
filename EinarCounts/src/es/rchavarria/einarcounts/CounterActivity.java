@@ -18,7 +18,7 @@ public class CounterActivity extends Activity {
 	public void counterTouched(View v) {
 		TextView txt = (TextView) findViewById(R.id.txtCounter);
 		
-		txt.setText(controller.next());
+		txt.setText(controller.incrementCount());
 		txt.invalidate();
 	}
 }

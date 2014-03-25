@@ -68,16 +68,16 @@ public class CounterControllerTest {
 	public void resetsWhenItReaches10() {
 		checkIncrement("10");
 		
-		assertEquals("#", controller.next());
+		assertEquals("#", controller.incrementCount());
 	}
 	
 	private void checkIncrement(String upTo) {
 		int countUpTo = Integer.parseInt(upTo) - 1;
 		for(int i = 0; i < countUpTo; i++) {
-			controller.next();
+			controller.incrementCount();
 		}
 		
-		assertEquals(upTo, controller.next());
+		assertEquals(upTo, controller.incrementCount());
 	}
 
 }

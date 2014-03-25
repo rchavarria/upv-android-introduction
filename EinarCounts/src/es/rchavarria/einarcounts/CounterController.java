@@ -4,7 +4,7 @@ public class CounterController {
 
 	private int counter = 0;
 	
-	public String next() {
+	public String incrementCount() {
 		counter++;
 		
 		if(counter > 10) {
