@@ -18,7 +18,7 @@ public class CounterActivity extends Activity {
 	public void incrementCounter(View v) {
 		TextView txt = (TextView) findViewById(R.id.txtCounter);
 		
-		txt.setText(controller.next(txt.getText().toString()));
+		txt.setText(controller.next());
 		txt.invalidate();
 	}
 }

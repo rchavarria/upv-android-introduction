@@ -15,28 +15,69 @@ public class CounterControllerTest {
 	}
 	
 	@Test
-	public void incrementsFromNothingTo1() {
-		assertEquals("1", controller.next("#"));
+	public void incrementsUpTo1() {
+		checkIncrement("1");
 	}
 	
 	@Test
-	public void incrementsFrom1To2() {
-		assertEquals("2", controller.next("1"));
+	public void incrementsUpTo2() {
+		checkIncrement("2");
 	}
 	
 	@Test
-	public void incrementsFrom2To3() {
-		assertEquals("3", controller.next("2"));
+	public void incrementsUpTo3() {
+		checkIncrement("3");
 	}
 	
 	@Test
-	public void incrementsFrom9To10() {
-		assertEquals("10", controller.next("9"));
+	public void incrementsUpTo4() {
+		checkIncrement("4");
 	}
 	
 	@Test
-	public void incrementsFrom10ToAString() {
-		assertEquals("#", controller.next("10"));
+	public void incrementsUpTo5() {
+		checkIncrement("5");
+	}
+	
+	@Test
+	public void incrementsUpTo6() {
+		checkIncrement("6");
+	}
+	
+	@Test
+	public void incrementsUpTo7() {
+		checkIncrement("7");
+	}
+	
+	@Test
+	public void incrementsUpTo8() {
+		checkIncrement("8");
+	}
+	
+	@Test
+	public void incrementsUpTo9() {
+		checkIncrement("9");
+	}
+	
+	@Test
+	public void incrementsUpTo10() {
+		checkIncrement("10");
+	}
+	
+	@Test
+	public void resetsWhenItReaches10() {
+		checkIncrement("10");
+		
+		assertEquals("#", controller.next());
+	}
+	
+	private void checkIncrement(String upTo) {
+		int countUpTo = Integer.parseInt(upTo) - 1;
+		for(int i = 0; i < countUpTo; i++) {
+			controller.next();
+		}
+		
+		assertEquals(upTo, controller.next());
 	}
 
 }
