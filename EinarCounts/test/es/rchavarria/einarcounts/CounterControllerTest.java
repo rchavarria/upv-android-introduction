@@ -15,23 +15,28 @@ public class CounterControllerTest {
 	}
 	
 	@Test
+	public void incrementsFromNothingTo1() {
+		assertEquals("1", controller.next("#"));
+	}
+	
+	@Test
 	public void incrementsFrom1To2() {
-		assertEquals("2", controller.incrementCounter("1"));
+		assertEquals("2", controller.next("1"));
 	}
 	
 	@Test
 	public void incrementsFrom2To3() {
-		assertEquals("3", controller.incrementCounter("2"));
+		assertEquals("3", controller.next("2"));
 	}
 	
 	@Test
 	public void incrementsFrom9To10() {
-		assertEquals("10", controller.incrementCounter("9"));
+		assertEquals("10", controller.next("9"));
 	}
 	
 	@Test
-	public void incrementsFrom10To1() {
-		assertEquals("1", controller.incrementCounter("10"));
+	public void incrementsFrom10ToAString() {
+		assertEquals("#", controller.next("10"));
 	}
 
 }

@@ -2,14 +2,15 @@ package es.rchavarria.einarcounts;
 
 public class CounterController {
 
-	public String incrementCounter(String previousCounter) {
-		int number = Integer.parseInt(previousCounter);
-		int next = number + 1;
-		if(next > 10) {
-			next = 1;
-		}
+	public String next(String previousCounter) {
+		int number = 0;
+		try {
+			number = Integer.parseInt(previousCounter);
+		} catch(Exception e) {}
 		
-		return Integer.valueOf(next).toString();
+		int next = number + 1;
+		
+		return (next <= 10) ? Integer.valueOf(next).toString() : "#";
 	}
 
 }
