@@ -3,6 +3,7 @@ package com.example.holamundo;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends ListActivity {
 
 	private BaseAdapter adapter;
+	private MediaPlayer mp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,9 @@ public class MainActivity extends ListActivity {
 		setListAdapter(adapter);
 		
 		 Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+		 
+		 // MediaPlayer to play sounds
+		 mp = MediaPlayer.create(this, R.raw.audio);
 	}
 
 	@Override
@@ -81,6 +86,8 @@ public class MainActivity extends ListActivity {
 	protected void onStart() {
 		super.onStart();
 		Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+		
+		mp.start();
 	}
 
 	@Override
@@ -99,6 +106,9 @@ public class MainActivity extends ListActivity {
 	protected void onStop() {
 		super.onStop();
 		Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
+
+		Toast.makeText(this, "pausing sounds", Toast.LENGTH_SHORT).show();
+		mp.pause();
 	}
 
 	@Override
