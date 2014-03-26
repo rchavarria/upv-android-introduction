@@ -23,6 +23,8 @@ public class MainActivity extends ListActivity {
 
 		adapter = new PlacesAdapter(this);
 		setListAdapter(adapter);
+		
+		 Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -73,5 +75,41 @@ public class MainActivity extends ListActivity {
 		String s = "notificaciones: " + pref.getBoolean("notificaciones", true)
 				+ ", distancia mínima: " + pref.getString("distancia", "?");
 		Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onPause() {
+		Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
 	}
 }
