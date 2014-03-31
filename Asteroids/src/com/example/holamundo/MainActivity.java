@@ -16,6 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends ListActivity {
 
 	private BaseAdapter adapter;
+	private MediaPlayer mp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,10 @@ public class MainActivity extends ListActivity {
 		adapter = new PlacesAdapter(this);
 		setListAdapter(adapter);
 		
-		Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+		 Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+		 
+		 // MediaPlayer to play sounds
+		 mp = MediaPlayer.create(this, R.raw.audio);
 	}
 
 	@Override
@@ -82,6 +86,8 @@ public class MainActivity extends ListActivity {
 	protected void onStart() {
 		super.onStart();
 		Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+		
+		mp.start();
 	}
 
 	@Override
@@ -100,6 +106,9 @@ public class MainActivity extends ListActivity {
 	protected void onStop() {
 		super.onStop();
 		Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
+
+		Toast.makeText(this, "pausing sounds", Toast.LENGTH_SHORT).show();
+		mp.pause();
 	}
 
 	@Override
@@ -112,5 +121,25 @@ public class MainActivity extends ListActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		
+		if(mp != null) {
+			int position = mp.getCurrentPosition();
+			outState.putInt("position", position);
+		}
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle state) {
+		super.onRestoreInstanceState(state);
+		
+		if(state != null && mp != null) {
+			int position = state.getInt("position");
+			mp.seekTo(position);
+		}
 	}
 }
