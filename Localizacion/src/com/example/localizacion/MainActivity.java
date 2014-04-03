@@ -1,10 +1,13 @@
 package com.example.localizacion;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -31,9 +34,9 @@ public class MainActivity extends Activity implements LocationListener {
       muestraProveedores();
 
       Criteria criterio = new Criteria();
-      Criterio.setCostAllowed(false);
-      Criterio.setAltitudeRequired(false);
-      Criterio.setAccuracy(Criteria.ACCURACY_FINE);
+      criterio.setCostAllowed(false);
+      criterio.setAltitudeRequired(false);
+      criterio.setAccuracy(Criteria.ACCURACY_FINE);
 
       proveedor = manejador.getBestProvider(criterio, true);
 
@@ -44,26 +47,74 @@ public class MainActivity extends Activity implements LocationListener {
       muestraLocaliz(localizacion);
    }
 
+	// Métodos del ciclo de vida de la actividad
 	@Override
-	public void onLocationChanged(Location arg0) {
-		// TODO Auto-generated method stub
+	protected void onResume() {
+		super.onResume();
+		// Activamos notificaciones de localización
+		manejador.requestLocationUpdates(proveedor, TIEMPO_MIN, DISTANCIA_MIN,
+				this);
 	}
 
-
 	@Override
-	public void onProviderDisabled(String arg0) {
-		// TODO Auto-generated method stub
+	protected void onPause() {
+		super.onPause();
+		manejador.removeUpdates(this);
 	}
 
-
-	@Override
-	public void onProviderEnabled(String arg0) {
-		// TODO Auto-generated method stub
+	// Métodos de la interfaz LocationListener
+	public void onLocationChanged(Location location) {
+		log("Nueva localización: ");
+		muestraLocaliz(location);
 	}
 
-
-	@Override
-	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-		// TODO Auto-generated method stub
+	public void onProviderDisabled(String proveedor) {
+		log("Proveedor deshabilitado: " + proveedor + "\n");
 	}
+
+	public void onProviderEnabled(String proveedor) {
+		log("Proveedor habilitado: " + proveedor + "\n");
+	}
+
+	public void onStatusChanged(String proveedor, int estado, Bundle extras) {
+		log("Cambia estado proveedor: " + proveedor + ", estado="
+				+ E[Math.max(0, estado)] + ", extras=" + extras + "\n");
+	}
+
+	// Métodos para mostrar información
+	private void log(String cadena) {
+		salida.append(cadena + "\n");
+	}
+
+	private void muestraLocaliz(Location localizacion) {
+		if (localizacion == null)
+			log("Localización desconocida\n");
+		else
+			log(localizacion.toString() + "\n");
+	}
+
+	private void muestraProveedores() {
+		log("Proveedor de localización: \n");
+		List<String> proveedores = manejador.getAllProviders();
+		for (String proveedor : proveedores) {
+			muestraProveedor(proveedor);
+		}
+	}
+
+	private void muestraProveedor(String proveedor) {
+		LocationProvider info = manejador.getProvider(proveedor);
+		log("LocationProvider[ " + "getName=" + info.getName()
+				+ ", isProviderEnabled="
+				+ manejador.isProviderEnabled(proveedor) + ", getAccuracy="
+				+ A[Math.max(0, info.getAccuracy())] + ", getPowerRequirement="
+				+ P[Math.max(0, info.getPowerRequirement())]
+				+ ", hasMonetaryCost=" + info.hasMonetaryCost()
+				+ ", requiresCell=" + info.requiresCell()
+				+ ", requiresNetwork=" + info.requiresNetwork()
+				+ ", requiresSatellite=" + info.requiresSatellite()
+				+ ", supportsAltitude=" + info.supportsAltitude()
+				+ ", supportsBearing=" + info.supportsBearing()
+				+ ", supportsSpeed=" + info.supportsSpeed() + " ]\n");
+	}
+
 }
