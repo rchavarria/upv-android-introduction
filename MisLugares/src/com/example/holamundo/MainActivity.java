@@ -70,6 +70,28 @@ public class MainActivity extends ListActivity {
 		startActivity(intent);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		activarProveedores();
+	}
+
+	private void activarProveedores() {
+		if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			manejador.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20 * 1000, 5, this);
+		}
+
+		if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			manejador.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10 * 1000, 10, this);
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		manejador.removeUpdates(this);
+	}
+	
 	public void launchAbout(View view) {
 		Intent i = new Intent(this, AboutActivity.class);
 		startActivity(i);
