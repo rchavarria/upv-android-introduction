@@ -1,12 +1,16 @@
 package com.example.holamundo;
 
+import org.example.mislugares.Lugares;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends ListActivity implements LocationListener {
 
 	private BaseAdapter adapter;
 	private LocationManager manejador;
@@ -90,6 +94,30 @@ public class MainActivity extends ListActivity {
 	protected void onPause() {
 		super.onPause();
 		manejador.removeUpdates(this);
+	}
+	
+	@Override
+	public void onLocationChanged(Location location) {
+		Log.d(Lugares.TAG, "Nueva localización: " + location);
+		actualizaMejorLocaliz(location);
+	}
+
+	@Override
+	public void onProviderDisabled(String proveedor) {
+		Log.d(Lugares.TAG, "Se deshabilita: " + proveedor);
+		activarProveedores();
+	}
+
+	@Override
+	public void onProviderEnabled(String proveedor) {
+		Log.d(Lugares.TAG, "Se habilita: " + proveedor);
+		activarProveedores();
+	}
+
+	@Override
+	public void onStatusChanged(String proveedor, int estado, Bundle extras) {
+		Log.d(Lugares.TAG, "Cambia estado: " + proveedor);
+		activarProveedores();
 	}
 	
 	public void launchAbout(View view) {
