@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Lugares {
 
-    protected static List<Lugar> vectorLugares = ejemploLugares();
+    public static final String TAG = "TagLugares";
+	protected static List<Lugar> vectorLugares = ejemploLugares();
 
     public Lugares() {
          vectorLugares = ejemploLugares();
