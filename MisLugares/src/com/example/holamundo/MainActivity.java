@@ -123,6 +123,10 @@ public class MainActivity extends ListActivity implements LocationListener {
 	}
 	
 	private void actualizaMejorLocaliz(Location localiz) {
+		if (localiz == null) {
+			return;
+		}
+		
 		if (mejorLocaliz == null
 				|| localiz.getAccuracy() < 2 * mejorLocaliz.getAccuracy()
 				|| localiz.getTime() - mejorLocaliz.getTime() > DOS_MINUTOS) {
