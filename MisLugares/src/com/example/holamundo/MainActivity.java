@@ -3,6 +3,8 @@ package com.example.holamundo;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -15,6 +17,9 @@ import android.widget.Toast;
 public class MainActivity extends ListActivity {
 
 	private BaseAdapter adapter;
+	private LocationManager manejador;
+	private Location mejorLocaliz;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,14 @@ public class MainActivity extends ListActivity {
 
 		adapter = new PlacesAdapter(this);
 		setListAdapter(adapter);
+		
+		manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
+		if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+		}
+		if (manejador.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			actualizaMejorLocaliz(manejador.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
+		}
 	}
 
 	@Override
