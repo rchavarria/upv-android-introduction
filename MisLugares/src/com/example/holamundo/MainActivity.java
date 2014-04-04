@@ -127,14 +127,18 @@ public class MainActivity extends ListActivity implements LocationListener {
 			return;
 		}
 		
-		if (mejorLocaliz == null
-				|| localiz.getAccuracy() < 2 * mejorLocaliz.getAccuracy()
-				|| localiz.getTime() - mejorLocaliz.getTime() > DOS_MINUTOS) {
+		if(isBetterLocation(localiz)) {
 			Log.d(Lugares.TAG, "Nueva mejor localización");
 			mejorLocaliz = localiz;
 			Lugares.posicionActual.setLatitud(localiz.getLatitude());
 			Lugares.posicionActual.setLongitud(localiz.getLongitude());
 		}
+	}
+
+	private boolean isBetterLocation(Location localiz) {
+		return mejorLocaliz == null
+				|| localiz.getAccuracy() < 2 * mejorLocaliz.getAccuracy()
+				|| localiz.getTime() - mejorLocaliz.getTime() > DOS_MINUTOS;
 	}
 	
 	public void launchAbout(View view) {
