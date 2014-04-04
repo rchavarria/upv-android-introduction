@@ -19,7 +19,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends ListActivity implements LocationListener {
-
+	
+	private static final long DOS_MINUTOS = 2 * 60 * 1000;
+	
 	private BaseAdapter adapter;
 	private LocationManager manejador;
 	private Location mejorLocaliz;
@@ -118,6 +120,17 @@ public class MainActivity extends ListActivity implements LocationListener {
 	public void onStatusChanged(String proveedor, int estado, Bundle extras) {
 		Log.d(Lugares.TAG, "Cambia estado: " + proveedor);
 		activarProveedores();
+	}
+	
+	private void actualizaMejorLocaliz(Location localiz) {
+		if (mejorLocaliz == null
+				|| localiz.getAccuracy() < 2 * mejorLocaliz.getAccuracy()
+				|| localiz.getTime() - mejorLocaliz.getTime() > DOS_MINUTOS) {
+			Log.d(Lugares.TAG, "Nueva mejor localización");
+			mejorLocaliz = localiz;
+			Lugares.posicionActual.setLatitud(localiz.getLatitude());
+			Lugares.posicionActual.setLongitud(localiz.getLongitude());
+		}
 	}
 	
 	public void launchAbout(View view) {
