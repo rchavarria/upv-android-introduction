@@ -4,11 +4,11 @@ import org.example.mislugares.GeoPunto;
 import org.example.mislugares.Lugar;
 import org.example.mislugares.Lugares;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,13 +28,13 @@ public class Mapa extends FragmentActivity implements OnInfoWindowClickListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mapa);
 		
-		Log.d(Lugares.TAG, "searching for id : " + R.id.mapa);
 		mapa = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapa)).getMap();
-		Log.d(Lugares.TAG, "id found : " + R.id.mapa);
 		mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		mapa.setMyLocationEnabled(true);
 		mapa.getUiSettings().setZoomControlsEnabled(true);
 		mapa.getUiSettings().setCompassEnabled(true);
+		
+		mapa.setOnInfoWindowClickListener(this);
 		
 		if (Lugares.vectorLugares.size() > 0) {
 			GeoPunto p = Lugares.vectorLugares.get(0).getPosicion();
@@ -60,9 +60,15 @@ public class Mapa extends FragmentActivity implements OnInfoWindowClickListener 
 	}
 
 	@Override
-	public void onInfoWindowClick(Marker arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onInfoWindowClick(Marker marker) {
+		for (int id = 0; id < Lugares.vectorLugares.size(); id++) {
+			if (Lugares.vectorLugares.get(id).getNombre().equals(marker.getTitle())) {
+				Intent intent = new Intent(this, VistaLugar.class);
+				intent.putExtra("id", (long) id);
+				startActivity(intent);
+				break;
+			}
+		}
 	}
 
 }
