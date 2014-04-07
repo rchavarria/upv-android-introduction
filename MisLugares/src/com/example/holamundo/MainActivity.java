@@ -63,6 +63,10 @@ public class MainActivity extends ListActivity implements LocationListener {
 		case R.id.search:
 			showPreferences(null);
 			break;
+		case R.id.menu_mapa:
+			Intent i = new Intent(this, Mapa.class);
+			startActivity(i);
+			break;
 		}
 		return true;
 	}
