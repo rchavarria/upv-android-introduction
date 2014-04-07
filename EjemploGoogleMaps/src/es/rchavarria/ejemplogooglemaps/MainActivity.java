@@ -27,33 +27,24 @@ public class MainActivity extends FragmentActivity implements OnMapClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
 		initMap();
 	}
 
 	private void initMap() {
-		android.app.Fragment smf = getFragmentManager().findFragmentById(R.id.map);
-		if (smf == null) {
-			return;
-		}
-		
-//		mapa = smf.getMap();
-//		mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//		mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
-//		mapa.setMyLocationEnabled(true);
-//		mapa.getUiSettings().setZoomControlsEnabled(false);
-//		mapa.getUiSettings().setCompassEnabled(true);
-//		mapa.addMarker(new MarkerOptions()
-//			.position(UPV)
-//			.title("UPV")
-//			.snippet("Universidad Politécnica de Valencia")
-//			.icon(BitmapDescriptorFactory
-//			.fromResource(R.drawable.ic_launcher))
-//			.anchor(0.5f, 0.5f));
-//		mapa.setOnMapClickListener(this);
+		mapa = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+		mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+		mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
+		mapa.setMyLocationEnabled(true);
+		mapa.getUiSettings().setZoomControlsEnabled(false);
+		mapa.getUiSettings().setCompassEnabled(true);
+		mapa.addMarker(new MarkerOptions()
+			.position(UPV)
+			.title("UPV")
+			.snippet("Universidad Politécnica de Valencia")
+			.icon(BitmapDescriptorFactory
+			.fromResource(R.drawable.ic_launcher))
+			.anchor(0.5f, 0.5f));
+		mapa.setOnMapClickListener(this);
 	}
 	
 	@Override
@@ -73,22 +64,6 @@ public class MainActivity extends FragmentActivity implements OnMapClickListener
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-			
-			return rootView;
-		}
 	}
 
 	public void moveCamera(View view) {
