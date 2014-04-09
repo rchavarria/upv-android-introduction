@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +23,7 @@ public class MainActivity extends ListActivity implements LocationListener {
 	
 	private static final long DOS_MINUTOS = 2 * 60 * 1000;
 	
-	private BaseAdapter adapter;
+	private BaseAdapter adaptador;
 	private LocationManager manejador;
 	private Location mejorLocaliz;
 
@@ -32,8 +33,14 @@ public class MainActivity extends ListActivity implements LocationListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		adapter = new PlacesAdapter(this);
-		setListAdapter(adapter);
+//		adaptador = new PlacesAdapter(this);
+		Lugares.indicializaBD(this);
+		adaptador = new SimpleCursorAdapter(this,
+		      R.layout.list_element,
+		      Lugares.listado(),
+		      new String[] { "nombre", "direccion"},
+		      new int[] { R.id.nombre, R.id.direccion}, 0);
+		setListAdapter(adaptador);
 		
 		manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
 		if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
