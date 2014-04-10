@@ -40,8 +40,13 @@ public class VistaLugar extends Activity {
         
         Bundle extras = getIntent().getExtras();
         id = extras.getLong("id", -1);
-        lugar = Lugares.elemento((int) id);
-        
+                
+        actualizarVistas();
+    }
+	
+	private void actualizarVistas() {
+		lugar = Lugares.elemento((int) id);
+		
         TextView nombre = (TextView) findViewById(R.id.nombre);
         nombre.setText(lugar.getNombre());
         ImageView logo_tipo = (ImageView) findViewById(R.id.logo_tipo);
@@ -74,7 +79,7 @@ public class VistaLugar extends Activity {
         
         ImageView image = (ImageView) findViewById(R.id.foto);
         ponerFoto(image, lugar.getFoto());
-    }
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,9 +118,11 @@ public class VistaLugar extends Activity {
 		if(requestCode == RESULTADO_GALERIA && resultCode == Activity.RESULT_OK) {
 			lugar.setFoto(data.getDataString());
 		    ponerFoto(image, lugar.getFoto());
+		    Lugares.actualizaLugar((int) id, lugar);
 		
 		} else if(requestCode == RESULTADO_FOTO && resultCode == Activity.RESULT_OK && lugar!=null && uriFoto!=null) {
 	       lugar.setFoto(uriFoto.toString());
+	       Lugares.actualizaLugar((int) id, lugar);
 	       ponerFoto(image, lugar.getFoto());
 		}
 	}
