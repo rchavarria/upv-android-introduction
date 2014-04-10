@@ -115,7 +115,7 @@ public class Lugares {
 	}
 	
 	public static void actualizaLugar(int id, Lugar lugar){
-		lugar = Lugares.elemento((int) id);
+//		lugar = Lugares.elemento((int) id);
 		
 	    SQLiteDatabase bd = lugaresBD.getWritableDatabase();
 	    bd.execSQL("UPDATE lugares SET nombre = '"+ lugar.getNombre() +
