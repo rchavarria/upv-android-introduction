@@ -33,13 +33,17 @@ public class MainActivity extends ListActivity implements LocationListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-//		adaptador = new PlacesAdapter(this);
 		Lugares.indicializaBD(this);
-		adaptador = new SimpleCursorAdapter(this,
-		      R.layout.list_element,
-		      Lugares.listado(),
-		      new String[] { "nombre", "direccion"},
-		      new int[] { R.id.nombre, R.id.direccion}, 0);
+//		adaptador = new PlacesAdapter(this);
+		
+//		adaptador = new SimpleCursorAdapter(this,
+//		      R.layout.list_element,
+//		      Lugares.listado(),
+//		      new String[] { "nombre", "direccion"},
+//		      new int[] { R.id.nombre, R.id.direccion}, 0);
+		
+		adaptador = new AdaptadorCursorLugares(this, Lugares.listado());
+		
 		setListAdapter(adaptador);
 		
 		manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
