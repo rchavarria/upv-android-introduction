@@ -31,7 +31,7 @@ public class MainActivity extends ListActivity implements LocationListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.fragment_selector);
 
 		Lugares.indicializaBD(this);
 //		adaptador = new PlacesAdapter(this);
