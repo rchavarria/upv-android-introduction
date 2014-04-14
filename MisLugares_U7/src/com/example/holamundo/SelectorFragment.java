@@ -2,7 +2,6 @@ package com.example.holamundo;
 
 import org.example.mislugares.Lugares;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,8 +33,6 @@ public class SelectorFragment extends Fragment implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View vista, int posicion, long id) {
-		Intent intent = new Intent(getActivity(), VistaLugar.class);
-		intent.putExtra("id", id);
-		startActivity(intent);
+		((MainActivity) getActivity()).muestraLugar(id);
 	}
 }

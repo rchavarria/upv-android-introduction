@@ -149,4 +149,16 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 				+ ", distancia mínima: " + pref.getString("distancia", "?");
 		Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
 	}
+
+	public void muestraLugar(long id) {
+		VistaLugarFragment fragmentVista = (VistaLugarFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.vista_lugar_fragment);
+		if (fragmentVista != null) {
+			fragmentVista.actualizarVistas(id);
+		} else {
+			Intent intent = new Intent(this, VistaLugar.class);
+			intent.putExtra("id", id);
+			startActivity(intent);
+		}
+	}
 }
