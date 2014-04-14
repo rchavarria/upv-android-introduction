@@ -2,7 +2,6 @@ package com.example.holamundo;
 
 import org.example.mislugares.Lugares;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -10,20 +9,17 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends ListActivity implements LocationListener {
+public class MainActivity extends FragmentActivity implements LocationListener {
 	
 	private static final long DOS_MINUTOS = 2 * 60 * 1000;
 	
-	private BaseAdapter adaptador;
 	private LocationManager manejador;
 	private Location mejorLocaliz;
 
@@ -31,20 +27,9 @@ public class MainActivity extends ListActivity implements LocationListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_selector);
+		setContentView(R.layout.activity_main);
 
 		Lugares.indicializaBD(this);
-//		adaptador = new PlacesAdapter(this);
-		
-//		adaptador = new SimpleCursorAdapter(this,
-//		      R.layout.list_element,
-//		      Lugares.listado(),
-//		      new String[] { "nombre", "direccion"},
-//		      new int[] { R.id.nombre, R.id.direccion}, 0);
-		
-		adaptador = new AdaptadorCursorLugares(this, Lugares.listado());
-		
-		setListAdapter(adaptador);
 		
 		manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
 		if (manejador.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -80,15 +65,6 @@ public class MainActivity extends ListActivity implements LocationListener {
 			break;
 		}
 		return true;
-	}
-
-	@Override
-	protected void onListItemClick(ListView listView, View view, int position, long id) {
-		super.onListItemClick(listView, view, position, id);
-
-		Intent intent = new Intent(this, VistaLugar.class);
-		intent.putExtra("id", id);
-		startActivity(intent);
 	}
 
 	@Override
